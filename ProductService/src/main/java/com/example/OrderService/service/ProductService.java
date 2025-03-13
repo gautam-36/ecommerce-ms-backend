@@ -14,7 +14,10 @@ public interface ProductService {
 
     void deleteProduct(Long id);
 
-    void updateProduct(Long id, ProductRequestDTO productRequestDTO );
+    ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO );
 
 
+    List<ProductResponseDTO> searchProducts(String keyword);
+
+    List<ProductResponseDTO> getPaginatedProducts(int page, int size);
 }
