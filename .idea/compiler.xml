@@ -9,16 +9,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="EurekaServer" />
       </profile>
-      <profile name="Annotation profile for Cart-Service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-        </processorPath>
-        <module name="ProductService" />
-      </profile>
       <profile name="Annotation profile for Payment-Service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -28,6 +18,17 @@
         </processorPath>
         <module name="OrderService" />
         <module name="PaymentService" />
+      </profile>
+      <profile name="Annotation profile for Inventory-Service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+        </processorPath>
+        <module name="PaymentService (1)" />
+        <module name="ProductService" />
         <module name="OrderService (1)" />
       </profile>
     </annotationProcessing>
@@ -38,6 +39,7 @@
       <module name="OrderService" options="-parameters" />
       <module name="OrderService (1)" options="-parameters" />
       <module name="PaymentService" options="-parameters" />
+      <module name="PaymentService (1)" options="-parameters" />
       <module name="ProductService" options="-parameters" />
     </option>
   </component>
