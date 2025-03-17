@@ -2,7 +2,7 @@ package com.example.OrderService.enums;
 
 public enum OrderStatus {
 
-    PENDING,
+    PENDING_PAYMENT,
     CONFIRMED,
     SHIPPED,
     DELIVERED,

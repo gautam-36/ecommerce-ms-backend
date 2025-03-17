@@ -1,6 +1,10 @@
 package com.example.ShippingService.domain;
+
+import com.example.ShippingService.enums.ShippingStatus;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -12,8 +16,15 @@ public class Shipping {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long shippingId;
 
-    private Long productId;
-    private Integer quantity;
+    private Long orderId;
+    private Long customerId;
+    private String shippingAddress;
+    private String trackingNumber;
+    private LocalDateTime shippedAt;
+    private LocalDateTime estimatedDelivery;
+
+    @Enumerated(EnumType.STRING)
+    private ShippingStatus status;
 }

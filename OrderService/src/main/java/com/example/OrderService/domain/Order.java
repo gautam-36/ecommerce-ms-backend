@@ -25,5 +25,5 @@ public class Order {
     private LocalDateTime orderCancelDate;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status; // PENDING, CONFIRMED, SHIPPED, DELIVERED
+    private OrderStatus status; // PENDING_PAYMENT, CONFIRMED, SHIPPED, DELIVERED
 }

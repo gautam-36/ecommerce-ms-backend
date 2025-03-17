@@ -25,9 +25,9 @@ public class OrderController {
 
     @Operation(summary = "Create a new Order", description = "Create a new Order")
     @PostMapping("/create/{userId}")
-    public ResponseEntity<?> createOrder(@PathVariable Long userId) {
+    public ResponseEntity<?> placeOrder(@PathVariable Long userId) {
         try {
-            Order order = orderService.createOrder(userId);
+            Order order = orderService.placeOrder(userId);
             return ResponseEntity.status(201).body(order);
         } catch (RuntimeException e) {
             log.error("Error while creating order for user {}: {}", userId, e.getMessage());

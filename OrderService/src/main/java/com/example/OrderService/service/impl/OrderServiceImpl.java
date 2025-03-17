@@ -4,12 +4,15 @@ import com.example.OrderService.client.CartFiegnClient;
 import com.example.OrderService.client.CartResponse;
 import com.example.OrderService.domain.Order;
 import com.example.OrderService.enums.OrderStatus;
+import com.example.OrderService.events.OrderEvent;
 import com.example.OrderService.repository.OrderRepository;
 import com.example.OrderService.service.OrderService;
 import feign.FeignException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import org.springframework.kafka.core.KafkaTemplate;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,9 +25,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     CartFiegnClient client;
 
+    @Autowired
+    private KafkaTemplate<String, OrderEvent> kafkaTemplate;
+
     @Transactional
     @Override
-    public Order createOrder(Long userId) {
+    public Order placeOrder(Long userId) {
         CartResponse cart;
         try {
             cart = client.getCart(userId);
@@ -39,10 +45,20 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order();
         order.setUserId(cart.getUserId());
         order.setTotalAmount(cart.getTotalCartPrice());
-        order.setStatus(OrderStatus.PENDING);
+        order.setStatus(OrderStatus.PENDING_PAYMENT);
         order.setOrderDate(LocalDateTime.now());
 
-        return orderRepository.save(order);
+        Order savedOrder =  orderRepository.save(order);
+
+        // publishing an event
+        OrderEvent event = new OrderEvent(savedOrder.getOrderId(),savedOrder.getUserId(),"Faridabad");
+        kafkaTemplate.send("order-created-topic" , event);
+
+        return savedOrder;
+    }
+
+    public void orderConfirmed(){
+
     }
 
 
@@ -113,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
-        if (order.getStatus() == OrderStatus.PENDING) {
+        if (order.getStatus() == OrderStatus.PENDING_PAYMENT) {
             order.setStatus(OrderStatus.PAID);
             return orderRepository.save(order);
         } else {
