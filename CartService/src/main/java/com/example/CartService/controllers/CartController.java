@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/carts")
+@RequestMapping("/carts")
 @Slf4j
 public class CartController {
 

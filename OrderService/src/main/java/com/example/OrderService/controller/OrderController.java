@@ -4,6 +4,7 @@ import com.example.OrderService.domain.Order;
 import com.example.OrderService.enums.OrderStatus;
 import com.example.OrderService.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,6 @@ public class OrderController {
 
      @Autowired
      OrderService orderService;
-
-
 
     @Operation(summary = "Create a new Order", description = "Create a new Order")
     @PostMapping("/create/{userId}")
@@ -73,13 +72,13 @@ public class OrderController {
 
     @Operation(summary = "Update Order Status", description = "This API is used to update the status of an order")
     @PutMapping("/{orderId}/status")
-    public ResponseEntity<?> updateOrderStatus(@PathVariable Long orderId, @RequestBody OrderStatus orderStatus) {
+    public String updateOrderStatus(@PathVariable Long orderId,  @Parameter(description = "New payment status") @RequestParam OrderStatus orderStatus) {
         try {
-            Order order = orderService.updateOrderStatus(orderId, orderStatus);
-            return ResponseEntity.ok(order);
+            log.info("update success");
+            return orderService.updateOrderStatus(orderId, orderStatus);
         } catch (RuntimeException e) {
             log.error("Error updating order status for order {}: {}", orderId, e.getMessage());
-            return ResponseEntity.status(404).body(e.getMessage());
+            return "error updating order status";
         }
     }
 

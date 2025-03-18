@@ -13,6 +13,6 @@ import java.util.List;
 public class CartResponse {
     private Long cartId;
     private Long userId;
-    private List<CartItemResponse> items;
+    private List<OrderStatus> items;
     private Double totalCartPrice;
 }

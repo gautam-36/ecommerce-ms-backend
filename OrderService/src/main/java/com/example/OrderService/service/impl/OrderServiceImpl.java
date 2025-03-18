@@ -16,6 +16,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -91,12 +92,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public Order updateOrderStatus(Long orderId, OrderStatus orderStatus) {
-        Order existingOrder = orderRepository.findByOrderId(orderId)
+    public String updateOrderStatus(Long orderId, OrderStatus orderStatus) {
+        // validating that order with given id is exits or not
+        Order existingOrder = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order with ID " + orderId + " doesn't exist"));
 
-        existingOrder.setStatus(orderStatus);
-        return orderRepository.save(existingOrder);
+        // Perform the update
+        orderRepository.updateOrderStatus(orderId, orderStatus.toString());
+        return "Update successful";
     }
 
 
