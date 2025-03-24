@@ -21,7 +21,7 @@
         <module name="PaymentService (1)" />
         <module name="OrderService (1)" />
       </profile>
-      <profile name="Annotation profile for Product-Service" enabled="true">
+      <profile name="Annotation profile for Shipping-Service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />

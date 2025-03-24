@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/shipping")
 @Tag(name = "Shipping API", description = "Endpoints for managing shipments")
 @Slf4j

@@ -16,6 +16,7 @@ import java.util.List;
 @RequestMapping("/orders")
 @RestController
 @Slf4j
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Tag(name = "Order API", description = "Endpoints for order related operations")
 public class OrderController {
 

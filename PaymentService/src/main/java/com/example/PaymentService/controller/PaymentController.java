@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/payments")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Tag(name = "Payment API", description = "Endpoints for processing and managing payments")
 public class PaymentController {
 

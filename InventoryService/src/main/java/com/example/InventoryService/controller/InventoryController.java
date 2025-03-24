@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/inventory")
 @Tag(name = "Inventory API", description = "Endpoints for managing product inventory")
 public class InventoryController {
